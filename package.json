@@ -1,0 +1,30 @@
+{
+  "name": "presupuestos-ide_server",
+  "version": "1.0.0",
+  "description": "nodejs + graphql server",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErickRosete/PresupuestosIDE_Server.git"
+  },
+  "author": "Erick Rosete, Oscar Rosete and Jessica Borja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ErickRosete/PresupuestosIDE_Server/issues"
+  },
+  "homepage": "https://github.com/ErickRosete/PresupuestosIDE_Server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dataloader": "^1.4.0",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "mongoose": "^5.4.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
