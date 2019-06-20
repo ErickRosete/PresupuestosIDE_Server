@@ -1,44 +1,57 @@
 const DataLoader = require("dataloader");
+const Material = require("../../models/material");
+const MaterialGroup = require("../../models/material-group");
 
-const { dateToString } = require("../../helpers/date");
-
-
-//product
-const productLoader = new DataLoader(productIds => {
-  return getProducts(productIds);
+//material
+const materialLoader = new DataLoader(materialIds => {
+  return getMaterials(materialIds);
 });
 
-const getProducts = async productIds => {
+const getMaterials = async materialIds => {
   try {
-    const products = await Product.find({ _id: { $in: productIds } });
-    return products.map(product => {
-      return transformProduct(product);
+    const materials = await Material.find({ _id: { $in: materialIds } });
+    return materials.map(material => {
+      return { ...material._doc };
     });
   } catch (err) {
     throw err;
   }
 };
 
-const getProduct = async productId => {
+//materialGroup
+const materialGroupLoader = new DataLoader(materialGroupIds => {
+  return getMaterialGroups(materialGroupIds);
+});
+
+const getMaterialGroups = async materialGroupIds => {
   try {
-    return await productLoader.load(productId.toString());
+    const materialGroups = await MaterialGroup.find({ _id: { $in: materialGroupIds } });
+    return materialGroups.map(materialGroup => {
+      return transformMaterialGroup(materialGroup);
+    });
   } catch (err) {
     throw err;
   }
 };
 
 //transform
-const transformProduct = async product => {
+const transformMaterialGroup = async materialGroup => {
   return {
-    ...product._doc,
-    subcategories: () => subcategoryLoader.loadMany(
-      product._doc.subcategories.map((subcategory) => subcategory.toString())
-    ),
-    accessories: () => accessoryLoader.loadMany(
-      product._doc.accessories.map((accesory) => accesory.toString())
+    ...materialGroup._doc,
+    materials: () => materialLoader.loadMany(
+      materialGroup.materials.map((material) => material.toString())
     )
   };
 };
 
+const transformConcept = async concept => {
+  return {
+    ...concept._doc,
+    materialGroups: () => materialGroupLoader.loadMany(
+      concept.materialGroups.map((materialGroup) => materialGroup.toString())
+    )
+  };
+};
 
-exports.transformProduct = transformProduct;
+exports.transformMaterialGroup = transformMaterialGroup;
+exports.transformConcept = transformConcept;

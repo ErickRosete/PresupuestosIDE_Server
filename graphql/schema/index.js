@@ -1,16 +1,24 @@
 const { buildSchema } = require("graphql");
 
-const product = require("./product");
+const materialGroup = require("./material-group");
+const material = require("./material");
+const concept = require("./concept")
 
 module.exports = buildSchema(`
-    ${product.definition}
+    ${material.definition}
+    ${materialGroup.definition}
+    ${concept.definition}
 
     type RootQuery {
-        ${product.query}   
+        ${material.query}
+        ${materialGroup.query}
+        ${concept.query}
     }
 
     type RootMutation {
-        ${product.mutation}    
+        ${material.mutation}
+        ${materialGroup.mutation}
+        ${concept.mutation}
     }
 
     schema {

@@ -1,7 +1,11 @@
-const productResolver = require("./product");
+const conceptResolver = require("./concept");
+const materialResolver = require("./material");
+const materialGroupResolver = require("./material-group");
 
 const rootResolver = {
-  ...productResolver,
+  ...conceptResolver,
+  ...materialResolver,
+  ...materialGroupResolver
 };
 
 module.exports = rootResolver;
