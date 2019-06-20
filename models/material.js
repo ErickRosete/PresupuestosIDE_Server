@@ -6,11 +6,11 @@ var materialSchema = new mongoose.Schema({
         required: true
     },
     name: String,
-    description: String,
     measurementUnit: String,
     quantity: Number,
     unitPrice: Number,
-    totalPrice: Number
+    totalPrice: Number,
+    fromExcel: Boolean
 });
 
 
