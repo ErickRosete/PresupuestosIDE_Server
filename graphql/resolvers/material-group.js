@@ -60,15 +60,18 @@ module.exports = {
 
     updateMaterialGroupFromDB: async args => {
         try {
-            const result = await MaterialGroup.findById(args.id).populate('auxMaterials');
-            // this.materialGroup.auxMaterials.ForEach(auxMaterial => {
-            //     const material = await Material.findOne({ materialKey: auxMaterial.materialKey });
-            //     if(!material){
-
-            //     }
-            // })
-
-            // populate('auxMaterials');
+            const result = await MaterialGroup.findById(args.id);
+            let i = this.materialGroup.auxMaterials.length;
+            while (i > 0) {
+                const auxMaterial = await auxMaterial.findById(this.materialGroup.auxMaterials[i]);
+                const material = await Material.findOne({ materialKey: auxMaterial.materialKey });
+                if (!material) {
+                    this.materialGroup.auxMaterials.splice(i, 1);
+                } else {
+                    auxMaterial = { ...material._doc, totalQuantity: material.quantity };
+                    await auxMaterial.save();
+                }
+            }
             return transformMaterialGroup(result)
 
         } catch (err) {

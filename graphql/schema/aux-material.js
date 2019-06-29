@@ -1,6 +1,7 @@
 const auxMaterialSchema = {
     definition: `
     type AuxMaterial {
+        _id: ID!
         materialKey: String,
         name: String,
         materialQuantity: Float,
