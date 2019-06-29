@@ -1,11 +1,15 @@
 var mongoose = require("mongoose");
 
 var auxMaterialSchema = new mongoose.Schema({
-    material: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Material"
-    },
-    quantity: Number
+    materialKey: String,
+    name: String,
+    materialQuantity: Number,
+    totalQuantity: Number,
+    measurementUnit: String,
+    unitPrice: Number,
+    totalPrice: Number,
+    quantity: Number,
+    fromExcel: Boolean
 });
 
 

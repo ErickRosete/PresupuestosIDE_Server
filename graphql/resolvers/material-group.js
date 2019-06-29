@@ -1,4 +1,5 @@
 const MaterialGroup = require("../../models/material-group");
+const Material = require("../../models/material");
 const { transformMaterialGroup } = require("./merge")
 
 module.exports = {
@@ -59,13 +60,22 @@ module.exports = {
 
     updateMaterialGroupFromDB: async args => {
         try {
-            const result = await MaterialGroup.findById(args.id);
+            const result = await MaterialGroup.findById(args.id).populate('auxMaterials');
+            // this.materialGroup.auxMaterials.ForEach(auxMaterial => {
+            //     const material = await Material.findOne({ materialKey: auxMaterial.materialKey });
+            //     if(!material){
+
+            //     }
+            // })
+
+            // populate('auxMaterials');
             return transformMaterialGroup(result)
 
         } catch (err) {
-
+            throw err;
         }
     },
+
     deleteMaterialGroup: async args => {
         try {
             const materialGroup = await MaterialGroup.findByIdAndDelete(args.id);
