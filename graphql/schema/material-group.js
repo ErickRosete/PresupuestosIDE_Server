@@ -8,7 +8,7 @@ const materialGroupSchema = {
         quantity: Int,
         unitPrice: Int,
         totalPrice: Int,
-        materials: [Material]
+        auxMaterials: [AuxMaterial]
     }
 
     input MaterialGroupInput{
@@ -18,7 +18,7 @@ const materialGroupSchema = {
         quantity: Int,
         unitPrice: Int,
         totalPrice: Int,
-        materials: [ID]
+        auxMaterials: [ID]
     }
     `,
 

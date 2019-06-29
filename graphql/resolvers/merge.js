@@ -53,5 +53,13 @@ const transformConcept = async concept => {
   };
 };
 
+const transformAuxMaterial = async auxMaterial => {
+  return {
+    ...auxMaterial._doc,
+    material: () => materialGroupLoader.load(auxMaterial.material.toString())
+  };
+}
+
 exports.transformMaterialGroup = transformMaterialGroup;
 exports.transformConcept = transformConcept;
+exports.transformAuxMaterial = transformAuxMaterial;

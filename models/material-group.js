@@ -10,9 +10,9 @@ var materialGroupSchema = new mongoose.Schema({
     quantity: Number,
     unitPrice: Number,
     totalPrice: Number,
-    materials: [{
+    auxMaterials: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Material"
+        ref: "AuxMaterial"
     }],
 });
 
