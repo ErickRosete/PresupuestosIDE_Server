@@ -1,19 +1,32 @@
-const auxMaterialGroupSchema = {
+const auxMaterialSchema = {
     definition: `
     type AuxMaterial {
-        quantity: Int,
-        material: Material
+        materialKey: String,
+        name: String,
+        materialQuantity: Float,
+        totalQuantity: Float,
+        measurementUnit: String,
+        unitPrice: Float,
+        totalPrice: Float,
+        fromExcel: Boolean,
     },
 
     input AuxMaterialInput{
-        quantity: Int,
-        material: ID!,
+        materialKey: String,
+        name: String
+        materialQuantity: Float,
+        totalQuantity: Float,
+        measurementUnit: String,
+        unitPrice: Float,
+        totalPrice: Float,
+        fromExcel: Boolean,
     }
     `,
 
     query: `
         auxMaterials: [AuxMaterial]
         auxMaterial(id: ID!): AuxMaterial!
+        
     `,
 
     mutation: `
@@ -23,4 +36,4 @@ const auxMaterialGroupSchema = {
     `,
 };
 
-module.exports = auxMaterialGroupSchema;
+module.exports = auxMaterialSchema;

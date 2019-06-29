@@ -57,6 +57,15 @@ module.exports = {
         }
     },
 
+    updateMaterialGroupFromDB: async args => {
+        try {
+            const result = await MaterialGroup.findById(args.id);
+            return transformMaterialGroup(result)
+
+        } catch (err) {
+
+        }
+    },
     deleteMaterialGroup: async args => {
         try {
             const materialGroup = await MaterialGroup.findByIdAndDelete(args.id);
