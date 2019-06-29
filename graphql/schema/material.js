@@ -2,22 +2,22 @@ const materialSchema = {
     definition: `
     type Material {
         _id: ID!
-        materialKey: String!,
+        materialKey: String,
         measurementUnit: String,
         name: String
-        quantity: Int,
-        unitPrice: Int,
-        totalPrice: Int,
+        quantity: Float,
+        unitPrice: Float,
+        totalPrice: Float,
         fromExcel: Boolean
     }
 
     input MaterialInput{
-        materialKey: String!,
+        materialKey: String,
         measurementUnit: String,
         name: String
-        quantity: Int,
-        unitPrice: Int,
-        totalPrice: Int,
+        quantity: Float,
+        unitPrice: Float,
+        totalPrice: Float,
         fromExcel: Boolean
     }
     `,
