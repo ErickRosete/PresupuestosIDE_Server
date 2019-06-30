@@ -24,7 +24,7 @@ const materialGroupSchema = {
 
     query: `
     materialGroups: [MaterialGroup!]!
-    materialGroup(id: ID!): Material!
+    materialGroup(id: ID!): MaterialGroup!
     materialGroupByKey(materialGroupKey: String!): MaterialGroup!
     `,
 

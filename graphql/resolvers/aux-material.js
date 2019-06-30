@@ -49,6 +49,7 @@ module.exports = {
     },
 
     deleteAuxMaterial: async args => {
+        console.log(args)
         try {
             const auxMaterial = await AuxMaterial.findByIdAndDelete(args.id);
             return { ...auxMaterial._doc };
