@@ -30,6 +30,7 @@ const materialGroupSchema = {
 
     mutation: `
     createMaterialGroup(materialGroupInput: MaterialGroupInput!): MaterialGroup
+    createMaterialGroupCopy(id: ID!, materialGroupInput: MaterialGroupInput!): MaterialGroup
     updateMaterialGroup(id: ID!, materialGroupInput: MaterialGroupInput!): MaterialGroup
     updateMaterialGroupFromDB(id: ID!): MaterialGroup                     
     deleteMaterialGroup(id: ID!): MaterialGroup 

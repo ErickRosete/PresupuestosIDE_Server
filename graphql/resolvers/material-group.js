@@ -1,6 +1,9 @@
 const MaterialGroup = require("../../models/material-group");
 const Material = require("../../models/material");
-const { transformMaterialGroup } = require("./merge")
+const AuxMaterial = require("../../models/aux-material");
+const { transformMaterialGroup } = require("./merge");
+var mongoose = require('mongoose');
+
 
 module.exports = {
     materialGroups: async () => {
@@ -45,6 +48,34 @@ module.exports = {
         }
     },
 
+    createMaterialGroupCopy: async args => {
+        try {
+            const materialGroupRef = await MaterialGroup.findById(args.id).populate('auxMaterials');
+
+            //Generate AuxMaterials copies
+            const auxMaterials = materialGroupRef.auxMaterials.map(async (auxMaterial) => {
+                const newAuxMaterial = AuxMaterial({
+                    ...auxMaterial._doc,
+                    _id: mongoose.Types.ObjectId()
+                });
+                const result = await newAuxMaterial.save();
+                return result._id;
+            });
+
+            //Save MaterialGroup
+            const materialGroup = MaterialGroup({
+                ...materialGroupRef._doc,
+                ...args.materialGroupInput,
+                auxMaterials,
+                _id: mongoose.Types.ObjectId()
+            });
+            const result = await materialGroup.save();
+            return transformMaterialGroup(result);
+        } catch (err) {
+            throw err;
+        }
+    },
+
     updateMaterialGroup: async args => {
         try {
             const result = await MaterialGroup.findOneAndUpdate(
@@ -60,15 +91,22 @@ module.exports = {
 
     updateMaterialGroupFromDB: async args => {
         try {
-            const result = await MaterialGroup.findById(args.id);
-            let i = this.materialGroup.auxMaterials.length;
+            const materialGroup = await MaterialGroup.findById(args.id);
+            let i = materialGroup.auxMaterials.length;
             while (i > 0) {
-                const auxMaterial = await auxMaterial.findById(this.materialGroup.auxMaterials[i]);
+                let auxMaterial = await auxMaterial.findById(materialGroup.auxMaterials[i]);
                 const material = await Material.findOne({ materialKey: auxMaterial.materialKey });
+                //Search for material in DB if it doesn't exist delete from MaterialGroup
                 if (!material) {
-                    this.materialGroup.auxMaterials.splice(i, 1);
+                    materialGroup.auxMaterials.splice(i, 1);
                 } else {
-                    auxMaterial = { ...material._doc, totalQuantity: material.quantity };
+                    //if it exists update values
+                    auxMaterial = {
+                        ...auxMaterial._doc,
+                        ...material._doc,
+                        totalQuantity: material.quantity,
+                        _id: auxMaterial._id
+                    };
                     await auxMaterial.save();
                 }
             }
