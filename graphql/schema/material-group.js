@@ -23,7 +23,7 @@ const materialGroupSchema = {
     `,
 
     query: `
-    materialGroups: [Material!]!
+    materialGroups: [MaterialGroup!]!
     materialGroup(id: ID!): Material!
     materialGroupByKey(materialGroupKey: String!): MaterialGroup!
     `,
