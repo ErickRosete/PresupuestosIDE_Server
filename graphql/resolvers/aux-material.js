@@ -1,4 +1,6 @@
 const AuxMaterial = require("../../models/aux-material");
+const MaterialGroup = require("../../models/material-group");
+
 const { transformAuxMaterial } = require("./merge");
 
 module.exports = {
@@ -49,8 +51,14 @@ module.exports = {
     },
 
     deleteAuxMaterial: async args => {
-        console.log(args)
         try {
+            //Delete AuxMaterial from MaterialGroup
+            const materialGroup = await MaterialGroup.find({ auxMaterials: args.id });
+            const auxMaterialIndex = materialGroup.auxMaterials.findIndex((auxMaterial) => auxMaterial == args.id);
+            materialGroup.auxMaterials.splice(auxMaterialIndex, 1);
+            await materialGroup.save();
+
+            //Delete AuxMaterial
             const auxMaterial = await AuxMaterial.findByIdAndDelete(args.id);
             return { ...auxMaterial._doc };
         } catch (err) {
