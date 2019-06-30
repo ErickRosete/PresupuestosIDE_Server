@@ -119,7 +119,11 @@ module.exports = {
 
     deleteMaterialGroup: async args => {
         try {
+            //Delete MaterialGroup
             const materialGroup = await MaterialGroup.findByIdAndDelete(args.id);
+            //Delete inner AuxMaterials
+            await AuxMaterial.deleteMany({ _id: { $in: materialGroup.auxMaterials } });
+
             return transformMaterialGroup(materialGroup);
         } catch (err) {
             throw err;
