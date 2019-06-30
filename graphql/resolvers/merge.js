@@ -1,5 +1,6 @@
 const DataLoader = require("dataloader");
 const Material = require("../../models/material");
+const AuxMaterial = require("../../models/aux-material")
 const MaterialGroup = require("../../models/material-group");
 
 //material
@@ -17,6 +18,23 @@ const getMaterials = async materialIds => {
     throw err;
   }
 };
+
+//material
+const auxMaterialLoader = new DataLoader(auxMaterialIds => {
+  return getAuxMaterials(auxMaterialIds);
+});
+
+const getAuxMaterials = async auxMaterialIds => {
+  try {
+    const auxMaterials = await AuxMaterial.find({ _id: { $in: auxMaterialIds } });
+    return auxMaterials.map(auxMaterial => {
+      return { ...auxMaterial._doc };
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
 
 //materialGroup
 const materialGroupLoader = new DataLoader(materialGroupIds => {
@@ -38,8 +56,8 @@ const getMaterialGroups = async materialGroupIds => {
 const transformMaterialGroup = async materialGroup => {
   return {
     ...materialGroup._doc,
-    materials: () => materialLoader.loadMany(
-      materialGroup.materials.map((material) => material.toString())
+    auxMaterials: () => auxMaterialLoader.loadMany(
+      materialGroup.auxMaterials.map((auxMaterial) => auxMaterial.toString())
     )
   };
 };
@@ -53,13 +71,5 @@ const transformConcept = async concept => {
   };
 };
 
-const transformAuxMaterial = async auxMaterial => {
-  return {
-    ...auxMaterial._doc,
-    material: () => materialGroupLoader.load(auxMaterial.material.toString())
-  };
-}
-
 exports.transformMaterialGroup = transformMaterialGroup;
 exports.transformConcept = transformConcept;
-exports.transformAuxMaterial = transformAuxMaterial;

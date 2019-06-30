@@ -6,7 +6,7 @@ module.exports = {
         try {
             const auxMaterials = await AuxMaterial.find();
             return auxMaterials.map(auxMaterial => {
-                return transformAuxMaterial(auxMaterial);
+                return { ...auxMaterial._doc };
             });
         } catch (err) {
             throw err;
@@ -16,7 +16,7 @@ module.exports = {
     auxMaterial: async args => {
         try {
             const auxMaterial = await AuxMaterial.findById(args.id);
-            return transformAuxMaterial(auxMaterial);
+            return { ...auxMaterial._doc };
         } catch (err) {
             throw err;
         }
@@ -29,7 +29,7 @@ module.exports = {
 
         try {
             const result = await auxMaterial.save();
-            return transformAuxMaterial(result);
+            return { ...result._doc };
         } catch (err) {
             throw err;
         }
@@ -42,7 +42,7 @@ module.exports = {
                 { ...args.auxMaterialInput },
                 { new: true }
             )
-            return transformAuxMaterial(result);
+            return { ...result._doc };
         } catch (err) {
             throw err;
         }
@@ -51,7 +51,7 @@ module.exports = {
     deleteAuxMaterial: async args => {
         try {
             const auxMaterial = await AuxMaterial.findByIdAndDelete(args.id);
-            return transformAuxMaterial(auxMaterial);
+            return { ...auxMaterial._doc };
         } catch (err) {
             throw err;
         }
