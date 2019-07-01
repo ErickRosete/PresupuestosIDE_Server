@@ -25,11 +25,11 @@ module.exports = {
     },
 
     createAuxMaterial: async args => {
-        const auxMaterial = AuxMaterial({
-            ...args.auxMaterialInput
-        });
-
         try {
+            const auxMaterial = AuxMaterial({
+                ...args.auxMaterialInput
+            });
+
             const result = await auxMaterial.save();
             return { ...result._doc };
         } catch (err) {
@@ -39,14 +39,27 @@ module.exports = {
 
     updateAuxMaterial: async args => {
         try {
-            const result = await AuxMaterial.findOneAndUpdate(
+            //Update AuxMaterial
+            const auxMaterial = await AuxMaterial.findOneAndUpdate(
                 { _id: args.id },
                 { ...args.auxMaterialInput },
                 { new: true }
             )
             //Update DataLoader Cache
             auxMaterialLoader.clear(args.id.toString());
-            return { ...result._doc };
+
+            //Update MaterialGroup totalPrice
+            const materialGroups = await MaterialGroup.find({ auxMaterials: args.id }).populate('auxMaterials');
+            for (const materialGroup of materialGroups) {
+                let totalPrice = 0;
+                for (const auxMaterial of materialGroup.auxMaterials) {
+                    totalPrice += auxMaterial.totalPrice;
+                }
+                materialGroup.totalPrice = totalPrice;
+                await materialGroup.save();
+            }
+
+            return { ...auxMaterial._doc };
         } catch (err) {
             throw err;
         }
@@ -58,6 +71,7 @@ module.exports = {
             const materialGroup = await MaterialGroup.findOne({ auxMaterials: args.id });
             const auxMaterialIndex = materialGroup.auxMaterials.findIndex((auxMaterial) => auxMaterial == args.id);
             materialGroup.auxMaterials.splice(auxMaterialIndex, 1);
+            materialGroup.totalPrice = materialGroup.totalPrice - auxMaterial.totalPrice;
             await materialGroup.save();
 
             //Delete AuxMaterial
