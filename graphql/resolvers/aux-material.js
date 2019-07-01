@@ -1,7 +1,7 @@
 const AuxMaterial = require("../../models/aux-material");
 const MaterialGroup = require("../../models/material-group");
 
-const { transformAuxMaterial } = require("./merge");
+const { auxMaterialLoader } = require("./merge");
 
 module.exports = {
     auxMaterials: async () => {
@@ -44,6 +44,8 @@ module.exports = {
                 { ...args.auxMaterialInput },
                 { new: true }
             )
+            //Update DataLoader Cache
+            auxMaterialLoader.clear(args.id.toString());
             return { ...result._doc };
         } catch (err) {
             throw err;

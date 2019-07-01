@@ -73,3 +73,4 @@ const transformConcept = async concept => {
 
 exports.transformMaterialGroup = transformMaterialGroup;
 exports.transformConcept = transformConcept;
+exports.auxMaterialLoader = auxMaterialLoader;

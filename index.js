@@ -114,7 +114,7 @@ mongoose
         `mongodb+srv://${process.env.MONGO_USER}:${
         process.env.MONGO_PASSWORD
         }@cluster0-cij3w.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
-        , { useNewUrlParser: true })
+        , { useNewUrlParser: true, useFindAndModify: false })
     .then(() => {
         app.listen(port);
         console.log("App running on port " + port)
