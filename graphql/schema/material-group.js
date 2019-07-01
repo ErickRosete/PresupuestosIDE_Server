@@ -5,8 +5,8 @@ const materialGroupSchema = {
         materialGroupKey: String!,
         measurementUnit: String,
         name: String
-        quantity: Int,
-        unitPrice: Int,
+        quantity: Float,
+        unitPrice: Float,
         totalPrice: Float,
         auxMaterials: [AuxMaterial]
     }
@@ -15,8 +15,8 @@ const materialGroupSchema = {
         materialGroupKey: String!,
         measurementUnit: String,
         name: String
-        quantity: Int,
-        unitPrice: Int,
+        quantity: Float,
+        unitPrice: Float,
         totalPrice: Float,
         auxMaterials: [ID]
     }

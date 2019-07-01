@@ -1,38 +1,32 @@
 const ConceptSchema = {
-    definition: `
+  definition: `
     type Concept {
         _id: ID!
         conceptKey: String!,
-        measurementUnit: String,
         name: String
-        quantity: Int,
-        unitPrice: Int,
-        totalPrice: Int,
-        materialGroups: [MaterialGroup]
+        price: Float,
+        auxMaterialGroups: [AuxMaterialGroup]
     }
 
     input ConceptInput{
         conceptKey: String!,
-        measurementUnit: String,
         name: String
-        quantity: Int,
-        unitPrice: Int,
-        totalPrice: Int,
-        materialGroups: [ID]
+        price: Float,
+        auxMaterialGroups: [ID]
     }
     `,
 
-    query: `
+  query: `
     concepts: [Concept!]!
     concept(id: ID!): Concept!
     conceptByKey(conceptKey: String!): Concept!
     `,
 
-    mutation: `
+  mutation: `
     createConcept(conceptInput: ConceptInput!): Concept
     updateConcept(id: ID!, conceptInput: ConceptInput!): Concept                     
     deleteConcept(id: ID!): Concept 
-    `,
+    `
 };
 
 module.exports = ConceptSchema;
