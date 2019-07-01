@@ -7,7 +7,7 @@ const materialGroupSchema = {
         name: String
         quantity: Int,
         unitPrice: Int,
-        totalPrice: Int,
+        totalPrice: Float,
         auxMaterials: [AuxMaterial]
     }
 
@@ -17,7 +17,7 @@ const materialGroupSchema = {
         name: String
         quantity: Int,
         unitPrice: Int,
-        totalPrice: Int,
+        totalPrice: Float,
         auxMaterials: [ID]
     }
     `,
