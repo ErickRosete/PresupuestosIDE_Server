@@ -4,7 +4,7 @@
   "description": "nodejs + graphql server",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ."
+    "start": "react-scripts start"
   },
   "repository": {
     "type": "git",
