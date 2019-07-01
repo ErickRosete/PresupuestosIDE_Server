@@ -67,6 +67,9 @@ module.exports = {
 
     deleteAuxMaterial: async args => {
         try {
+            //Delete AuxMaterial
+            const auxMaterial = await AuxMaterial.findByIdAndDelete(args.id);
+
             //Delete AuxMaterial from MaterialGroup
             const materialGroup = await MaterialGroup.findOne({ auxMaterials: args.id });
             const auxMaterialIndex = materialGroup.auxMaterials.findIndex((auxMaterial) => auxMaterial == args.id);
@@ -74,8 +77,6 @@ module.exports = {
             materialGroup.totalPrice = materialGroup.totalPrice - auxMaterial.totalPrice;
             await materialGroup.save();
 
-            //Delete AuxMaterial
-            const auxMaterial = await AuxMaterial.findByIdAndDelete(args.id);
             return { ...auxMaterial._doc };
         } catch (err) {
             throw err;
