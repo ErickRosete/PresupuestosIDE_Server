@@ -23,8 +23,8 @@ const ConceptSchema = {
     `,
 
     query: `
-    concepts: [Material!]!
-    concept(id: ID!): Material!
+    concepts: [Concept!]!
+    concept(id: ID!): Concept!
     conceptByKey(conceptKey: String!): Concept!
     `,
 

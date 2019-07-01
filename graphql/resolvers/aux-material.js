@@ -53,7 +53,7 @@ module.exports = {
     deleteAuxMaterial: async args => {
         try {
             //Delete AuxMaterial from MaterialGroup
-            const materialGroup = await MaterialGroup.find({ auxMaterials: args.id });
+            const materialGroup = await MaterialGroup.findOne({ auxMaterials: args.id });
             const auxMaterialIndex = materialGroup.auxMaterials.findIndex((auxMaterial) => auxMaterial == args.id);
             materialGroup.auxMaterials.splice(auxMaterialIndex, 1);
             await materialGroup.save();
