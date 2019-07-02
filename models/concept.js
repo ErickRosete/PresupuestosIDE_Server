@@ -7,6 +7,7 @@ var conceptSchema = new mongoose.Schema({
   },
   name: String,
   price: Number,
+  measurementUnit:String,
   auxMaterialGroups: [
     {
       type: mongoose.Schema.Types.ObjectId,

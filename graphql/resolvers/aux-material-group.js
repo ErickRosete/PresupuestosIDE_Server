@@ -24,11 +24,13 @@ module.exports = {
 
   createAuxMaterialGroup: async args => {
     try {
+      console.log(args)
       const auxMaterialGroup = AuxMaterialGroup({
         ...args.auxMaterialGroupInput
       });
 
       const result = await auxMaterialGroup.save();
+      console.log(result)
       return transformAuxMaterialGroup(result);
     } catch (err) {
       throw err;

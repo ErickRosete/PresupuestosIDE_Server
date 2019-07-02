@@ -22,7 +22,7 @@ const auxMaterialGroupSchema = {
     `,
 
   mutation: `
-    createAuxMaterialGroup(AuxMaterialGroupInput: AuxMaterialGroupInput!): AuxMaterialGroup
+    createAuxMaterialGroup(auxMaterialGroupInput: AuxMaterialGroupInput!): AuxMaterialGroup
     updateAuxMaterialGroup(id: ID!, auxMaterialGroupInput: AuxMaterialGroupInput!): AuxMaterialGroup
     deleteAuxMaterialGroup(id: ID!): AuxMaterialGroup 
     `

@@ -3,6 +3,7 @@ const ConceptSchema = {
     type Concept {
         _id: ID!
         conceptKey: String!,
+        measurementUnit: String,
         name: String
         price: Float,
         auxMaterialGroups: [AuxMaterialGroup]
@@ -10,6 +11,7 @@ const ConceptSchema = {
 
     input ConceptInput{
         conceptKey: String!,
+        measurementUnit: String,
         name: String
         price: Float,
         auxMaterialGroups: [ID]
