@@ -61,8 +61,7 @@ module.exports = {
       const concepts = await Concept.find({ auxMaterialGroups: args.id });
       for (const concept of concepts) {
         const auxMaterialGroupIndex = concept.auxMaterialGroups.findIndex((auxMaterialGroup) => auxMaterialGroup == args.id);
-        concept.price -= concept.auxMaterialGroups[auxMaterialGroupIndex].totalPrice;
-        // concept.price -= auxMaterialGroup.totalPrice;
+        concept.price -= auxMaterialGroup.totalPrice;
         concept.auxMaterialGroups.splice(auxMaterialGroupIndex, 1);
         await concept.save();
       }
