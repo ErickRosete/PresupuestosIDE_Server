@@ -1,4 +1,5 @@
 const AuxMaterialGroup = require("../../models/aux-material-group");
+const Concept = require("../../models/concept");
 const { transformAuxMaterialGroup } = require("./merge");
 
 module.exports = {
@@ -16,10 +17,6 @@ module.exports = {
   auxMaterialGroup: async args => {
     try {
       const auxMaterialGroup = await AuxMaterialGroup.findById(args.id);
-      console.log("auxMaterialGroup")
-      console.log(auxMaterialGroup)
-      console.log("auxMaterialGroup3")
-      console.log(transformAuxMaterialGroup(auxMaterialGroup))
       return transformAuxMaterialGroup(auxMaterialGroup);
     } catch (err) {
       throw err;
@@ -57,9 +54,19 @@ module.exports = {
 
   deleteAuxMaterialGroup: async args => {
     try {
-      const auxMaterialGroup = await AuxMaterialGroup.findByIdAndDelete(
-        args.id
-      );
+      //Delete MaterialGroup
+      const auxMaterialGroup = await AuxMaterialGroup.findByIdAndDelete(args.id);
+
+      //Delete Concept Reference
+      const concepts = await Concept.find({ auxMaterialGroups: args.id });
+      for (const concept of concepts) {
+        const auxMaterialGroupIndex = concept.auxMaterialGroups.findIndex((auxMaterialGroup) => auxMaterialGroup == args.id);
+        concept.price -= concept.auxMaterialGroups[auxMaterialGroupIndex].totalPrice;
+        // concept.price -= auxMaterialGroup.totalPrice;
+        concept.auxMaterialGroups.splice(auxMaterialGroupIndex, 1);
+        await concept.save();
+      }
+
       return transformAuxMaterialGroup(auxMaterialGroup);
     } catch (err) {
       throw err;
