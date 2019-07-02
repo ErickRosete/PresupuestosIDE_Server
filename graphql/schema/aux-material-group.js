@@ -2,7 +2,7 @@ const auxMaterialGroupSchema = {
   definition: `
     type AuxMaterialGroup {
         _id: ID!
-        materialGroup: ID!,
+        materialGroup: MaterialGroup,
         quantity: Float,
         unitPrice: Float,
         totalPrice: Float,

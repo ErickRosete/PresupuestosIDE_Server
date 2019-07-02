@@ -73,11 +73,22 @@ const getAuxMaterials = async auxMaterialIds => {
 
 //transform
 const transformAuxMaterialGroup = async auxMaterialGroup => {
-  return {
+  console.log("auxMaterialGroup2")
+  console.log(auxMaterialGroup)
+  console.log("auxMaterialGroup2b")
+  console.log(
+    {
     ...auxMaterialGroup._doc,
     materialGroup: () =>
       materialGroupLoader.load(auxMaterialGroup.materialGroup.toString())
-  };
+  }
+)
+  return     {
+    ...auxMaterialGroup._doc,
+    materialGroup: () =>
+      materialGroupLoader.load(auxMaterialGroup.materialGroup.toString())
+  }
+
 };
 
 const transformMaterialGroup = async materialGroup => {

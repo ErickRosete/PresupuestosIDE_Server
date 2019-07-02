@@ -16,6 +16,10 @@ module.exports = {
   auxMaterialGroup: async args => {
     try {
       const auxMaterialGroup = await AuxMaterialGroup.findById(args.id);
+      console.log("auxMaterialGroup")
+      console.log(auxMaterialGroup)
+      console.log("auxMaterialGroup3")
+      console.log(transformAuxMaterialGroup(auxMaterialGroup))
       return transformAuxMaterialGroup(auxMaterialGroup);
     } catch (err) {
       throw err;
