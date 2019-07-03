@@ -88,7 +88,19 @@ app.post('/importMaterials', upload.single("file"), (req, res) => {
                                 };
 
                                 row.eachCell(function (cell, colNumber) {
-                                    auxMaterial[cellMap[colNumber]] = cell.value;
+                                    if(colNumber===3){
+                                        // console.log(`revisocolumna3: ${cell.value}`)
+                                        if(cell.value===""){
+                                            console.log("encontre un nulo")
+                                            auxMaterial[cellMap[colNumber]] ="indefinido";
+                                        }
+                                        else{
+                                            auxMaterial[cellMap[colNumber]] = cell.value;
+                                        }
+                                    }
+                                    else{
+                                        auxMaterial[cellMap[colNumber]] = cell.value;
+                                    }
                                 });
 
                                 if (auxMaterial.materialKey) {
