@@ -50,18 +50,8 @@ module.exports = {
 
     createMaterialGroupCopy: async args => {
         try {
-            console.log(args)
             const materialGroupRef = await MaterialGroup.findById(args.id).populate('auxMaterials');
 
-            //Generate AuxMaterials copies
-            // const auxMaterials = materialGroupRef.auxMaterials.map(async (auxMaterial) => {
-            //     const newAuxMaterial = AuxMaterial({
-            //         ...auxMaterial._doc,
-            //         _id: mongoose.Types.ObjectId()
-            //     });
-            //     const result = await newAuxMaterial.save();
-            //     return result._id;
-            // });
             const auxMaterials = await Promise.map(materialGroupRef.auxMaterials, async (auxMaterial) => {
                 const newAuxMaterial = AuxMaterial({
                         ...auxMaterial._doc,
@@ -69,10 +59,7 @@ module.exports = {
                     });
                     const result = await newAuxMaterial.save();
                     return result._id;
-            })
-
-            console.log(auxMaterials)
-           
+            })           
 
             //Save MaterialGroup
             const materialGroup = MaterialGroup({

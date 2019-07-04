@@ -1,4 +1,5 @@
 const Concept = require("../../models/concept");
+const AuxMaterialGroup = require("../../models/aux-material-group")
 const { transformConcept } = require("./merge");
 
 module.exports = {
@@ -58,29 +59,26 @@ module.exports = {
     },
     createConceptCopy: async args => {
         try {
-            console.log(args)
-            
-            // const materialGroupRef = await MaterialGroup.findById(args.id).populate('auxMaterials');
+            const conceptRef = await Concept.findById(args.id).populate('auxMaterialGroups');
 
-            // const auxMaterials = await Promise.map(materialGroupRef.auxMaterials, async (auxMaterial) => {
-            //     const newAuxMaterial = AuxMaterial({
-            //             ...auxMaterial._doc,
-            //             _id: mongoose.Types.ObjectId()
-            //         });
-            //         const result = await newAuxMaterial.save();
-            //         return result._id;
-            // })
+            const auxMaterialGroups = await Promise.all(conceptRef.auxMaterialGroups.map(async auxMaterialGroup => {
+                const newAuxMaterialGroup = AuxMaterialGroup({
+                    ...auxMaterialGroup._doc,
+                    _id: mongoose.Types.ObjectId()
+                });
+                const result = await newAuxMaterialGroup.save();
+                return result._id;
+            }));
 
-            // console.log(auxMaterials)
-            // //Save MaterialGroup
-            // const materialGroup = MaterialGroup({
-            //     ...materialGroupRef._doc,
-            //     ...args.materialGroupInput,
-            //     auxMaterials,
-            //     _id: mongoose.Types.ObjectId()
-            // });
-            // const result = await materialGroup.save();
-            // return transformMaterialGroup(result);
+            //Save Concept
+            const concept = Concept({
+                ...conceptRef._doc,
+                ...args.conceptInput,
+                auxMaterialGroups,
+                _id: mongoose.Types.ObjectId()
+            });
+            const result = await concept.save();
+            return transformConcept(result);
         } catch (err) {
             throw err;
         }
