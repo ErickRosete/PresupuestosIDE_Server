@@ -1,6 +1,7 @@
 const Concept = require("../../models/concept");
 const AuxMaterialGroup = require("../../models/aux-material-group")
 const { transformConcept } = require("./merge");
+var mongoose = require('mongoose');
 
 module.exports = {
     concepts: async () => {
