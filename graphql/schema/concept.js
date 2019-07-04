@@ -28,6 +28,7 @@ const ConceptSchema = {
     createConcept(conceptInput: ConceptInput!): Concept
     updateConcept(id: ID!, conceptInput: ConceptInput!): Concept                     
     deleteConcept(id: ID!): Concept 
+    createConceptCopy(id: ID!, conceptInput: ConceptInput!): Concept
     `
 };
 

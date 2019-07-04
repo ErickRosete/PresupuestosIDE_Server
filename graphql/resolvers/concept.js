@@ -56,6 +56,35 @@ module.exports = {
             throw err;
         }
     },
+    createConceptCopy: async args => {
+        try {
+            console.log(args)
+            
+            // const materialGroupRef = await MaterialGroup.findById(args.id).populate('auxMaterials');
+
+            // const auxMaterials = await Promise.map(materialGroupRef.auxMaterials, async (auxMaterial) => {
+            //     const newAuxMaterial = AuxMaterial({
+            //             ...auxMaterial._doc,
+            //             _id: mongoose.Types.ObjectId()
+            //         });
+            //         const result = await newAuxMaterial.save();
+            //         return result._id;
+            // })
+
+            // console.log(auxMaterials)
+            // //Save MaterialGroup
+            // const materialGroup = MaterialGroup({
+            //     ...materialGroupRef._doc,
+            //     ...args.materialGroupInput,
+            //     auxMaterials,
+            //     _id: mongoose.Types.ObjectId()
+            // });
+            // const result = await materialGroup.save();
+            // return transformMaterialGroup(result);
+        } catch (err) {
+            throw err;
+        }
+    },
 
     deleteConcept: async args => {
         try {
