@@ -78,7 +78,7 @@ app.post('/importMaterials', upload.single("file"), (req, res) => {
                             5: "measurementUnit",
                             6: "quantity",
                             7: "totalPrice",
-                            8: "unitPrice"
+                            14: "unitPrice"
                         }
 
                         worksheet.eachRow(function (row, rowNumber) {
@@ -97,6 +97,9 @@ app.post('/importMaterials', upload.single("file"), (req, res) => {
                                         else{
                                             auxMaterial[cellMap[colNumber]] = cell.value;
                                         }
+                                    }
+                                    else if(colNumber===3){
+                                        console.log(`revisocolumna3: ${cell.value}`)
                                     }
                                     else{
                                         auxMaterial[cellMap[colNumber]] = cell.value;
