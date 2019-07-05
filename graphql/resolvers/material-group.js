@@ -51,7 +51,7 @@ module.exports = {
     createMaterialGroupCopy: async args => {
         try {
             const materialGroupRef = await MaterialGroup.findById(args.id).populate('auxMaterials');
-
+            // https://stackoverflow.com/questions/40140149/use-async-await-with-array-map
             const auxMaterials = await Promise.map(materialGroupRef.auxMaterials, async (auxMaterial) => {
                 const newAuxMaterial = AuxMaterial({
                         ...auxMaterial._doc,
