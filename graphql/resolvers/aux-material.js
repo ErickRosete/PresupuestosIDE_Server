@@ -46,6 +46,8 @@ module.exports = {
                 { new: true }
             )
             //Update DataLoader Cache
+            console.log("updating dataloader cache")
+            console.log(args)
             auxMaterialLoader.clear(args.id.toString());
 
             //Update MaterialGroup totalPrice

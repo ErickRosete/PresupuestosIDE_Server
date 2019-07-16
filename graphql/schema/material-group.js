@@ -8,6 +8,8 @@ const materialGroupSchema = {
         quantity: Float,
         unitPrice: Float,
         totalPrice: Float,
+        Mo: Float,
+        noMo: Float,
         auxMaterials: [AuxMaterial]
     }
 
@@ -17,7 +19,9 @@ const materialGroupSchema = {
         name: String
         quantity: Float,
         unitPrice: Float,
-        totalPrice: Float,
+        totalPrice: Float,    
+        Mo: Float,
+        noMo: Float,
         auxMaterials: [ID]
     }
     `,

@@ -124,6 +124,10 @@ app.post('/importMaterials', upload.single("file"), (req, res) => {
     }
 });
 
+console.log(`mongodb+srv://${process.env.MONGO_USER}:${
+        process.env.MONGO_PASSWORD
+        }@cluster0-cij3w.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`)
+
 mongoose
     .connect(
         `mongodb+srv://${process.env.MONGO_USER}:${
