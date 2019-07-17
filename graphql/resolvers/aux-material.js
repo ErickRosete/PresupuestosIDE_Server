@@ -50,17 +50,29 @@ module.exports = {
             console.log(args)
             auxMaterialLoader.clear(args.id.toString());
 
-            //Update MaterialGroup totalPrice
+            //Update MaterialGroup totalPrice, Mo and NoMo
             const materialGroups = await MaterialGroup.find({ auxMaterials: args.id }).populate('auxMaterials');
+            console.log(materialGroups)
+
             for (const materialGroup of materialGroups) {
-                let totalPrice = 0;
+                let Mo=0;
+                let noMo=0;
+                let totalPrice=0;
                 for (const auxMaterial of materialGroup.auxMaterials) {
                     totalPrice += auxMaterial.totalPrice;
+                    if(auxMaterial.materialKey.slice(0,2)==="MO")
+                        Mo+=auxMaterial.totalPrice
+                    else
+                        noMo+=auxMaterial.totalPrice
                 }
                 materialGroup.totalPrice = totalPrice;
+                materialGroup.Mo=Mo;
+                materialGroup.noMo=noMo;
+                console.log(materialGroup.auxMaterials)
                 await materialGroup.save();
             }
 
+            console.log(auxMaterial._doc )
             return { ...auxMaterial._doc };
         } catch (err) {
             throw err;

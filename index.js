@@ -10,6 +10,8 @@ const path = require('path');
 const fs = require("fs");
 const Excel = require('exceljs');
 const Material = require("./models/material");
+var https = require('https');
+var http = require('http')
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -128,6 +130,13 @@ console.log(`mongodb+srv://${process.env.MONGO_USER}:${
         process.env.MONGO_PASSWORD
         }@cluster0-cij3w.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`)
 
+
+
+var options = {
+    key: fs.readFileSync('./helpers/key/key.pem'),
+    cert: fs.readFileSync('./helpers/key/cert.pem')
+};
+
 mongoose
     .connect(
         `mongodb+srv://${process.env.MONGO_USER}:${
@@ -135,7 +144,11 @@ mongoose
         }@cluster0-cij3w.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
         , { useNewUrlParser: true, useFindAndModify: false })
     .then(() => {
-        app.listen(port);
+        // app.listen(port);
+        let port2=443
+        http.createServer(app).listen(port)
+        https.createServer(options, app).listen(port2)
         console.log("App running on port " + port)
+        console.log("App running on port2 " + port2)
     })
     .catch(err => { console.log("error general"); console.log(err) });
