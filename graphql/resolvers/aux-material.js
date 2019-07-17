@@ -95,8 +95,16 @@ module.exports = {
         auxMaterial => auxMaterial == args.id
       );
       materialGroup.auxMaterials.splice(auxMaterialIndex, 1);
+
+      //updating total price, mo and noMo
+      console.log("auxmaterial")
+      console.log(auxMaterial)
       materialGroup.totalPrice =
         materialGroup.totalPrice - auxMaterial.totalPrice;
+     if (auxMaterial.materialKey.slice(0, 2) === "MO")
+        materialGroup.Mo -= auxMaterial.totalPrice;
+     else  materialGroup.noMo -= auxMaterial.totalPrice;
+
       await materialGroup.save();
 
       return { ...auxMaterial._doc };
