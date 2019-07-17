@@ -132,10 +132,10 @@ console.log(`mongodb+srv://${process.env.MONGO_USER}:${
 
 
 
-var options = {
-    key: fs.readFileSync('./helpers/key/key.pem'),
-    cert: fs.readFileSync('./helpers/key/cert.pem')
-};
+// var options = {
+//     key: fs.readFileSync('./helpers/key/key.pem'),
+//     cert: fs.readFileSync('./helpers/key/cert.pem')
+// };
 
 mongoose
     .connect(
@@ -147,7 +147,7 @@ mongoose
         // app.listen(port);
         let port2=5001
         http.createServer(app).listen(port)
-        https.createServer(options, app).listen(port2)
+        // https.createServer(options, app).listen(port2)
         console.log("App running on port " + port)
         console.log("App running on port2 " + port2)
     })
