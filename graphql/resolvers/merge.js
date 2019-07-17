@@ -89,13 +89,30 @@ const transformAuxMaterialGroup = async auxMaterialGroup => {
 };
 
 const transformMaterialGroup = async materialGroup => {
-  return {
+  console.log("=========transforming materialGroup")
+  console.log(materialGroup)
+
+  console.log("========returnedAux")
+  let returnedAux=await auxMaterialLoader.loadMany(
+    materialGroup.auxMaterials.map(auxMaterial => auxMaterial.toString())
+  )
+  console.log(returnedAux)
+  
+  console.log("================********returnedAuxHardCoded")
+  let returnedAux2=await auxMaterialLoader.loadMany(["5d2e47905344135328d16fc4","5d2e47905344135328d16fc3"])
+  console.log(returnedAux2)
+
+  let returnedMaterialGroup= {
     ...materialGroup._doc,
     auxMaterials: () =>
       auxMaterialLoader.loadMany(
         materialGroup.auxMaterials.map(auxMaterial => auxMaterial.toString())
       )
   };
+  console.log("returned materialGroup")
+  console.log(returnedMaterialGroup)
+  
+  return returnedMaterialGroup;
 };
 
 const transformConcept = async concept => {
