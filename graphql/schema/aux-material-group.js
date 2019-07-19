@@ -6,6 +6,8 @@ const auxMaterialGroupSchema = {
         quantity: Float,
         unitPrice: Float,
         totalPrice: Float,
+        Mo:Float,
+        noMo:Float
     }
 
     input AuxMaterialGroupInput{
@@ -13,6 +15,8 @@ const auxMaterialGroupSchema = {
         quantity: Float,
         unitPrice: Float,
         totalPrice: Float,
+        Mo:Float,
+        noMo:Float
     }
     `,
 

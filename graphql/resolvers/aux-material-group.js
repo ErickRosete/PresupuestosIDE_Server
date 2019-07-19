@@ -28,6 +28,7 @@ module.exports = {
 
   createAuxMaterialGroup: async args => {
     try {
+      console.log("=====creatingAuxMaterialGroup")
       console.log(args);
       const auxMaterialGroup = AuxMaterialGroup({
         ...args.auxMaterialGroupInput
@@ -42,6 +43,7 @@ module.exports = {
   },
 
   updateAuxMaterialGroup: async args => {
+    console.log("======updateAuxMaterialGroup")
     try {
       const auxMaterialGroup = await AuxMaterialGroup.findOneAndUpdate(
         { _id: args.id },
@@ -58,6 +60,7 @@ module.exports = {
   },
 
   deleteAuxMaterialGroup: async args => {
+    console.log("======deleteAuxMaterialGroup")
     try {
       //Delete MaterialGroup
       const auxMaterialGroup = await AuxMaterialGroup.findByIdAndDelete(
@@ -70,8 +73,13 @@ module.exports = {
         const auxMaterialGroupIndex = concept.auxMaterialGroups.findIndex(
           auxMaterialGroup => auxMaterialGroup == args.id
         );
+        console.log(`elemento a borrar: ${auxMaterialGroupIndex}`)
         concept.price -= auxMaterialGroup.totalPrice;
+        concept.Mo -= auxMaterialGroup.Mo;
+        concept.noMo -= auxMaterialGroup.noMo;
         concept.auxMaterialGroups.splice(auxMaterialGroupIndex, 1);
+        console.log("=concepto a grabar")
+        console.log(concept)
         await concept.save();
       }
 

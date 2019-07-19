@@ -6,6 +6,8 @@ const ConceptSchema = {
         measurementUnit: String,
         name: String
         price: Float,
+        Mo:Float,
+        noMo:Float,
         auxMaterialGroups: [AuxMaterialGroup]
     }
 
@@ -14,6 +16,8 @@ const ConceptSchema = {
         measurementUnit: String,
         name: String
         price: Float,
+        Mo:Float,
+        noMo:Float,
         auxMaterialGroups: [ID]
     }
     `,

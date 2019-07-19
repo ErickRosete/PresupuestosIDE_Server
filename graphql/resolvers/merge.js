@@ -73,9 +73,10 @@ const getAuxMaterials = async auxMaterialIds => {
 
 //transform
 const transformAuxMaterialGroup = async auxMaterialGroup => {
-  console.log("auxMaterialGroup2");
+  console.log("===transforming auxmaterialgroup")
+  console.log("received");
   console.log(auxMaterialGroup);
-  console.log("auxMaterialGroup2b");
+  console.log("transformed");
   console.log({
     ...auxMaterialGroup._doc,
     materialGroup: () =>

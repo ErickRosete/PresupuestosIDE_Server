@@ -7,6 +7,8 @@ var conceptSchema = new mongoose.Schema({
   },
   name: String,
   price: Number,
+  Mo:Number,
+  noMo:Number,
   measurementUnit:String,
   auxMaterialGroups: [
     {

@@ -7,7 +7,9 @@ var auxMaterialGroupSchema = new mongoose.Schema({
   },
   quantity: Number,
   unitPrice: Number,
-  totalPrice: Number
+  totalPrice: Number,
+  Mo:Number,
+  noMo:Number
 });
 
 module.exports = mongoose.model("AuxMaterialGroup", auxMaterialGroupSchema);
