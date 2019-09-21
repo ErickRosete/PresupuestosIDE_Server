@@ -78,9 +78,9 @@ app.post('/importMaterials', upload.single("file"), (req, res) => {
                             2: "materialKey",
                             3: "name",
                             5: "measurementUnit",
-                            6: "quantity",
-                            7: "totalPrice",
-                            14: "unitPrice"
+                            9: "quantity",
+                            14: "unitPrice",
+                            15: "totalPrice"
                         }
 
                         worksheet.eachRow(function (row, rowNumber) {
