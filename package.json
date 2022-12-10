@@ -21,7 +21,7 @@
     "body-parser": "^1.18.3",
     "dataloader": "^1.4.0",
     "exceljs": "^1.12.2",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-graphql": "^0.7.1",
     "graphql": "^14.1.1",
     "mongoose": "^5.4.10",
